@@ -1,7 +1,12 @@
 "use strict";
 var Sorter_1 = require("./Sorter");
 var NumbersCollections_1 = require("./NumbersCollections");
+var CharactersCollection_1 = require("./CharactersCollection");
 var numbersCollection = new NumbersCollections_1.NumbersCollection([50, 3, -5, 0]);
-var sorter = new Sorter_1.Sorter(numbersCollection);
-sorter.sort();
+var numbersSorter = new Sorter_1.Sorter(numbersCollection);
+numbersSorter.sort();
 console.log(numbersCollection.data);
+var charactersCollection = new CharactersCollection_1.CharactersCollection("Xaayb");
+var characterSorter = new Sorter_1.Sorter(charactersCollection);
+characterSorter.sort();
+console.log(charactersCollection.data);
