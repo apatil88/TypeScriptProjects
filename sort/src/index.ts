@@ -1,28 +1,7 @@
-class Sorter {
-  constructor(public collection: number[] | string) {}
+import { Sorter } from "./Sorter";
+import { NumbersCollection } from "./NumbersCollections";
 
-  sort(): void {
-    const { length } = this.collection;
-
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length - i - 1; j++) {
-        //TypeGuard: use to restore access to a set of properties while using union type
-        if (this.collection instanceof Array) {
-          //collection === number[]
-          if (this.collection[j] > this.collection[j + 1]) {
-            const temp = this.collection[j];
-            this.collection[j] = this.collection[j + 1];
-            this.collection[j + 1] = temp;
-          }
-        }
-
-        if (typeof this.collection === "string") {
-        }
-      }
-    }
-  }
-}
-
-const sorter = new Sorter([10, 3, -5, 0]);
+const numbersCollection = new NumbersCollection([10000, 3, -5, 0]);
+const sorter = new Sorter(numbersCollection);
 sorter.sort();
-console.log(sorter.collection);
+console.log(numbersCollection.data);

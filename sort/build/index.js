@@ -1,19 +1,7 @@
-var Sorter = (function () {
-    function Sorter(collection) {
-        this.collection = collection;
-    }
-    Sorter.prototype.sort = function () {
-        var length = this.collection.length;
-        for (var i = 0; i < length; i++) {
-            for (var j = 0; j < length - i - 1; j++) {
-                var temp = this.collection[j];
-                this.collection[j] = this.collection[j + 1];
-                this.collection[j + 1] = temp;
-            }
-        }
-    };
-    return Sorter;
-}());
-var sorter = new Sorter([10, 3, -5, 0]);
+"use strict";
+var Sorter_1 = require("./Sorter");
+var NumbersCollections_1 = require("./NumbersCollections");
+var numbersCollection = new NumbersCollections_1.NumbersCollection([10000, 3, -5, 0]);
+var sorter = new Sorter_1.Sorter(numbersCollection);
 sorter.sort();
-console.log(sorter.collection);
+console.log(numbersCollection.data);
