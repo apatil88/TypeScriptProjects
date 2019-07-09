@@ -1,6 +1,14 @@
 "use strict";
-var NumbersCollection = (function () {
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Sorter_1 = require("./Sorter");
+var NumbersCollection = (function (_super) {
+    __extends(NumbersCollection, _super);
     function NumbersCollection(data) {
+        _super.call(this);
         this.data = data;
     }
     Object.defineProperty(NumbersCollection.prototype, "length", {
@@ -19,5 +27,5 @@ var NumbersCollection = (function () {
         this.data[rightIndex] = temp;
     };
     return NumbersCollection;
-}());
+}(Sorter_1.Sorter));
 exports.NumbersCollection = NumbersCollection;

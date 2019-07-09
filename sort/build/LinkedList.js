@@ -1,4 +1,10 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var Sorter_1 = require("./Sorter");
 var Node = (function () {
     function Node(data) {
         this.data = data;
@@ -6,8 +12,10 @@ var Node = (function () {
     }
     return Node;
 }());
-var LinkedList = (function () {
+var LinkedList = (function (_super) {
+    __extends(LinkedList, _super);
     function LinkedList() {
+        _super.apply(this, arguments);
         this.head = null;
     }
     LinkedList.prototype.add = function (data) {
@@ -78,5 +86,5 @@ var LinkedList = (function () {
         }
     };
     return LinkedList;
-}());
+}(Sorter_1.Sorter));
 exports.LinkedList = LinkedList;
