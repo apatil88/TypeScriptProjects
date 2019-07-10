@@ -62,3 +62,9 @@ typings/
 
 # cache
 .cache
+
+# package.json
+package-lock.json
+
+#build
+build/
