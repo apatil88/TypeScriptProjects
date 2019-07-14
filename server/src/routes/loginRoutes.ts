@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from "express";
 
 //extend from Request interface in express. Prevents assumptions made by type definition files regarding properties on an object.
 //For example: body-parser middleware adds a 'body' property to Request object.
@@ -8,9 +8,19 @@ interface RequestWithBody extends Request {
   body: { [key: string]: string | undefined };
 }
 
+function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (req.session && req.session.loggedIn) {
+    next();
+    return;
+  }
+
+  res.status(403);
+  res.send("Not permitted");
+}
+
 const router = Router();
 
-router.get('/login', (req: Request, res: Response) => {
+router.get("/login", (req: Request, res: Response) => {
   res.send(`
   <form method="POST">
     <div>
@@ -26,14 +36,44 @@ router.get('/login', (req: Request, res: Response) => {
   `);
 });
 
-router.post('/login', (req: RequestWithBody, res: Response) => {
+router.post("/login", (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
 
-  if (email) {
-    res.send(email + password);
+  if (email && password && email === "hi@hi.com" && password === "password") {
+    // mark this person as logged in
+    req.session = {
+      loggedIn: true
+    };
+    // redirect to root route
+    res.redirect("/");
   } else {
-    res.send('You must provide an email');
+    res.send("Invalid email or password");
   }
+});
+
+router.get("/", (req: Request, res: Response) => {
+  if (req.session && req.session.loggedIn) {
+    res.send(`
+    <div>
+      <div>You are logged in</div>
+      <a href="/logout">Logout</a>
+    </div>`);
+  } else {
+    res.send(`
+    <div>
+      <div>You are not logged in</div>
+      <a href="/login">Login</a>
+    </div>`);
+  }
+});
+
+router.get("/logout", (req: Request, res: Response) => {
+  req.session = undefined;
+  res.redirect("/");
+});
+
+router.get("/protected", requireAuth, (req: Request, res: Response) => {
+  res.send(`Welcome to protected route, logged in user`);
 });
 
 export { router };
