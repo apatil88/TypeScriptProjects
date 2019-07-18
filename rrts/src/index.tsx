@@ -5,6 +5,10 @@ interface AppProps {
   color?: string;
 }
 
+// const App = (props: AppProps): JSX.Element => {
+//   return <div>{props.color}</div>;
+// };
+
 interface AppState {
   counter: number;
 }
